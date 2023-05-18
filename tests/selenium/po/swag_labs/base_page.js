@@ -1,22 +1,29 @@
 const webdriver = require("selenium-webdriver");
 const driver = new webdriver.Builder().forBrowser("chrome").build();
-driver.manage().setTimeouts({ implicit: (10000) });
 
 class BasePage {
     constructor() {
         global.driver = driver;
     }
 
-    openUrl(url) {
-        driver.get(url);
+    async openUrl(url) {
+        await driver.get(url);
     }
 
-    isVisible(element) {
-        driver.findElement(webdriver.By.css(element)).isDisplayed()
+    async writeText(element, text) {
+        await driver.findElement(webdriver.By.css(element)).sendKeys(text);
     }
 
-    quitBrowser(){
-        driver.quit()
+    async waitForElement(selector) {
+        await driver.wait(webdriver.until.elementLocated(webdriver.By.css(selector)));
+    }
+
+    async clickOnElement(selector) {
+        await driver.findElement(webdriver.By.css(selector)).click();
+    }
+
+    async quitBrowser() {
+        await driver.quit();
     }
 }
 

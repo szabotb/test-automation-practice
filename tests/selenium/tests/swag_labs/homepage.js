@@ -9,38 +9,24 @@ logger.level = "debug";
 describe('Basic tests for login', () => {
     let baseURL = "https://www.saucedemo.com/";
 
-    before(() => {
-        try {
-            homepage.openUrl(baseURL);
-            logger.info(`${baseURL} url opened successfully`);
-        } catch (error) {
-            logger.error(error);
-        }
+    before(async () => {
+        await homepage.goToUrl(baseURL)
+        logger.info(`${baseURL} url opened successfully`);
+
     });
 
-    after(()=>{
-        homepage.quitBrowser();
+    after(async () => {
+        await homepage.quitBrowser()
         logger.info("Test is finished");
-    })
-
-    it('Checking elements of Home Page', () => {
-        try {
-            homepage.isVisible(selectors.homePage.usernameField);
-            homepage.isVisible(selectors.homePage.passwordField);
-            homepage.isVisible(selectors.homePage.submitButton);
-            logger.info("All necessary elements found on Home Page");
-
-        } catch (error) {
-            logger.error(error);
-        }
     });
 
-    it('Logging in on Home Page', ()=>{
-        try {
-            homepage.login(credentials.usernames.valid, credentials.password)
-            logger.info("Login was successful")
-        } catch (error) {
-            logger.error(error);
-        }
-    })
+    it('Checking elements of Home Page', async () => {
+        await homepage.elementsLoaded()
+        logger.info("All necessary elements found on Home Page");
+    });
+
+    it('Logging in on Home Page', async () => {
+        await homepage.login(credentials.usernames.valid, credentials.password);
+        logger.info("Login was successful");
+    });
 });
