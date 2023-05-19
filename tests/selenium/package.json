@@ -15,6 +15,7 @@
   "dependencies": {
     "chai": "^4.3.7",
     "chromedriver": "^113.0.0",
+    "jasmine": "^5.0.0",
     "log4js": "^6.9.1",
     "selenium": "^2.20.0",
     "selenium-webdriver": "^4.9.0"

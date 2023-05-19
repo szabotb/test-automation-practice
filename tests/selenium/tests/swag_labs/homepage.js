@@ -10,14 +10,9 @@ describe('Basic tests for login', () => {
     let baseURL = "https://www.saucedemo.com/";
 
     before(async () => {
-        await homepage.goToUrl(baseURL)
+        await homepage.openUrl(baseURL)
         logger.info(`${baseURL} url opened successfully`);
 
-    });
-
-    after(async () => {
-        await homepage.quitBrowser()
-        logger.info("Test is finished");
     });
 
     it('Checking elements of Home Page', async () => {

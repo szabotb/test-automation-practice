@@ -10,16 +10,24 @@ class BasePage {
         await driver.get(url);
     }
 
-    async writeText(element, text) {
-        await driver.findElement(webdriver.By.css(element)).sendKeys(text);
+    async locateElement(selector) {
+        return await driver.findElement(webdriver.By.css(selector));
     }
 
-    async waitForElement(selector) {
-        await driver.wait(webdriver.until.elementLocated(webdriver.By.css(selector)));
+    async locateElements(selector) {
+        return await driver.findElements(webdriver.By.css(selector));
+    }
+
+    async writeText(element, text) {
+        return await driver.findElement(webdriver.By.css(element)).sendKeys(text);
+    }
+
+    async waitForElements(selector) {
+        return await driver.wait(webdriver.until.elementLocated(webdriver.By.css(selector)));
     }
 
     async clickOnElement(selector) {
-        await driver.findElement(webdriver.By.css(selector)).click();
+        return await driver.findElement(webdriver.By.css(selector)).click();
     }
 
     async quitBrowser() {
