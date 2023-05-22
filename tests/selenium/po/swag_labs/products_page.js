@@ -1,4 +1,3 @@
-const { By, promise } = require("selenium-webdriver");
 const BasePage = require("./base_page");
 const selectors = require("../../test_data/swag_labs/selectors");
 

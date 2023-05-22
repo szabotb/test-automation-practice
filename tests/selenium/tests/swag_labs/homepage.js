@@ -1,7 +1,8 @@
 const homepage = require('../../po/swag_labs/home_page');
 const credentials = require('../../test_data/swag_labs/credentials');
 const { describe, it, before, after } = require('mocha');
-const selectors = require('../../test_data/swag_labs/selectors');
+const { expect } = require('chai');
+const { pageLoaded } = require('../../po/swag_labs/helpers/page_load_helper');
 const logger = require('log4js').getLogger();
 logger.level = "debug";
 
@@ -12,12 +13,12 @@ describe('Basic tests for login', () => {
     before(async () => {
         await homepage.openUrl(baseURL)
         logger.info(`${baseURL} url opened successfully`);
-
     });
 
     it('Checking elements of Home Page', async () => {
-        await homepage.elementsLoaded()
-        logger.info("All necessary elements found on Home Page");
+        let loadCheck = await pageLoaded(homepage);
+        expect(loadCheck).to.be.true;
+        logger.info("Home Page has been loaded entirely");
     });
 
     it('Logging in on Home Page', async () => {

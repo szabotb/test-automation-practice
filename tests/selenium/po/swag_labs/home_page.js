@@ -8,7 +8,7 @@ class HomePage extends BasePage {
         await this.waitForElements(selectors.homePage.passwordField),
         await this.waitForElements(selectors.homePage.submitButton)];
 
-        Promise.all(elementLoadSteps);
+        return Promise.all(elementLoadSteps);
     }
 
     async login(username, password) {
