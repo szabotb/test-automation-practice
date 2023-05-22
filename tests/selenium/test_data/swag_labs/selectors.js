@@ -20,6 +20,13 @@ let selectors = {
             addToCartButton: "[data-test*='add-to-cart']"
         }
 
+    },
+    productPage: {
+        title: "[class='inventory_details_name large_size']",
+        description: "[class='inventory_details_desc large_size']",
+        picture: "[class='inventory_details_img']",
+        price: "[class='inventory_details_price']",
+        addToCartButton: "[data-test*='add-to-cart']"
     }
 };
 

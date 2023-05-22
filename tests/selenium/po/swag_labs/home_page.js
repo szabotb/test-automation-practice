@@ -4,9 +4,11 @@ const selectors = require('../../test_data/swag_labs/selectors');
 class HomePage extends BasePage {
 
     async elementsLoaded() {
-        let elementLoadSteps = [await this.waitForElements(selectors.homePage.usernameField),
-        await this.waitForElements(selectors.homePage.passwordField),
-        await this.waitForElements(selectors.homePage.submitButton)];
+        let elementLoadSteps = [
+            await this.waitForElements(selectors.homePage.usernameField),
+            await this.waitForElements(selectors.homePage.passwordField),
+            await this.waitForElements(selectors.homePage.submitButton)
+        ];
 
         return Promise.all(elementLoadSteps);
     }
@@ -16,7 +18,7 @@ class HomePage extends BasePage {
         await this.writeText(selectors.homePage.passwordField, password),
         await this.clickOnElement(selectors.homePage.submitButton)];
 
-        Promise.all(loginSteps)
+        Promise.all(loginSteps);
     }
 }
 

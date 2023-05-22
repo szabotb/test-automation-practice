@@ -30,6 +30,10 @@ class BasePage {
         return await driver.findElement(webdriver.By.css(selector)).click();
     }
 
+    async browserBack() {
+        return await driver.navigate().back()
+    }
+
     async quitBrowser() {
         await driver.quit();
     }
