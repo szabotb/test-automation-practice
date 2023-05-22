@@ -4,7 +4,7 @@ let selectors = {
         passwordField: "input[data-test='password']",
         submitButton: "input[data-test='login-button']"
     },
-    productsPage: {
+    webshopPage: {
         header: {
             main: "[class='header_label']",
             hamburgerButton: "[class='bm-burger-button']",
