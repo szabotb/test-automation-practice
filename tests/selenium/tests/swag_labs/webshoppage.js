@@ -19,13 +19,16 @@ describe("Basic tests for Products Page", () => {
         expect(products.length).to.equal(6);
     });
     describe("Should click on the given products given element", () => {
+
+        //TODO: Make the number of products random
+
         it("Should open product number 3 by clicking on it's picture", async () => {
             await webshopPage.clickOnAProduct(3, selectors.webshopPage.products.picture);
             let loadCheck = await pageLoaded(productPage);
             expect(loadCheck).to.be.true;
         });
 
-        it("Should open product number 3 by clicking on it's title", async ()=> {
+        it("Should open product number 6 by clicking on it's title", async ()=> {
             await productPage.browserBack()
             await webshopPage.clickOnAProduct(6, selectors.webshopPage.products.title);
             let loadCheck = await pageLoaded(productPage);
