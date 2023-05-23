@@ -4,9 +4,15 @@ const webshopPage = require("../../po/swag_labs/webshop_page");
 const productPage = require("../../po/swag_labs/product_page");
 const selectors = require("../../test_data/swag_labs/selectors");
 const { pageLoaded } = require('../../po/swag_labs/helpers/page_load_helper');
+const homepage = require('../../po/swag_labs/home_page');
 const logger = require('log4js').getLogger();
 
+
 describe("Basic tests for Products Page", () => {
+
+    after(async () => {
+        await webshopPage.quitBrowser();
+    });
 
     it("Products page should be loaded entirely", async () => {
         let loadCheck = await pageLoaded(webshopPage);
@@ -22,29 +28,25 @@ describe("Basic tests for Products Page", () => {
         let randomNumber;
         beforeEach(() => {
             randomNumber = Math.floor((Math.random() * 6) + 1);
-        }) 
+        });
 
-        it("Should open product number 3 by clicking on it's picture", async () => {
+        it("Should open a random product by clicking on it's picture", async () => {
             await webshopPage.clickOnAProduct(randomNumber, selectors.webshopPage.products.picture);
             let loadCheck = await pageLoaded(productPage);
             expect(loadCheck).to.be.true;
             logger.info(`Number of product in this test was: ${randomNumber}`);
         });
 
-        it("Should open product number 6 by clicking on it's title", async () => {
+        it("Should open a random product by clicking on it's title", async () => {
             await productPage.browserBack();
-            let loadCheck = await pageLoaded(webshopPage)
+            let loadCheck = await pageLoaded(webshopPage);
             expect(loadCheck).to.be.true;
-            
+
             await webshopPage.clickOnAProduct(randomNumber, selectors.webshopPage.products.title);
             loadCheck = await pageLoaded(productPage);
             expect(loadCheck).to.be.true;
             logger.info(`Number of product in this test was: ${randomNumber}`);
         });
-    });
-
-    after(async () => {
-        await webshopPage.quitBrowser();
     });
 
 });
