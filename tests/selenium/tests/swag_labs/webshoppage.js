@@ -19,21 +19,28 @@ describe("Basic tests for Products Page", () => {
         expect(products.length).to.equal(6);
     });
     describe("Should click on the given products given element", () => {
-
-        //TODO: Make the number of products random
+        let randomNumber;
+        beforeEach(() => {
+            randomNumber = Math.floor((Math.random() * 6) + 1);
+        }) 
 
         it("Should open product number 3 by clicking on it's picture", async () => {
-            await webshopPage.clickOnAProduct(3, selectors.webshopPage.products.picture);
+            await webshopPage.clickOnAProduct(randomNumber, selectors.webshopPage.products.picture);
             let loadCheck = await pageLoaded(productPage);
             expect(loadCheck).to.be.true;
+            logger.info(`Number of product in this test was: ${randomNumber}`);
         });
 
-        it("Should open product number 6 by clicking on it's title", async ()=> {
-            await productPage.browserBack()
-            await webshopPage.clickOnAProduct(6, selectors.webshopPage.products.title);
-            let loadCheck = await pageLoaded(productPage);
+        it("Should open product number 6 by clicking on it's title", async () => {
+            await productPage.browserBack();
+            let loadCheck = await pageLoaded(webshopPage)
             expect(loadCheck).to.be.true;
-        })
+            
+            await webshopPage.clickOnAProduct(randomNumber, selectors.webshopPage.products.title);
+            loadCheck = await pageLoaded(productPage);
+            expect(loadCheck).to.be.true;
+            logger.info(`Number of product in this test was: ${randomNumber}`);
+        });
     });
 
     after(async () => {
