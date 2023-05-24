@@ -34,6 +34,10 @@ class BasePage {
         return await driver.navigate().back()
     }
 
+    async getCurrentUrl () {
+        return await driver.getCurrentUrl()
+    }
+
     async quitBrowser() {
         await driver.quit();
     }

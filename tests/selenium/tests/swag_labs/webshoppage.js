@@ -4,15 +4,11 @@ const webshopPage = require("../../po/swag_labs/webshop_page");
 const productPage = require("../../po/swag_labs/product_page");
 const selectors = require("../../test_data/swag_labs/selectors");
 const { pageLoaded } = require('../../po/swag_labs/helpers/page_load_helper');
-const homepage = require('../../po/swag_labs/home_page');
+const { urlConstants } = require('../../test_data/swag_labs/urlconstants');
 const logger = require('log4js').getLogger();
 
 
 describe("Basic tests for Products Page", () => {
-
-    after(async () => {
-        await webshopPage.quitBrowser();
-    });
 
     it("Products page should be loaded entirely", async () => {
         let loadCheck = await pageLoaded(webshopPage);
@@ -24,6 +20,12 @@ describe("Basic tests for Products Page", () => {
         let products = await webshopPage.locateElements(selectors.webshopPage.products.items);
         expect(products.length).to.equal(6);
     });
+
+    it("Page URL should be correct", async () => {
+        let currentUrl = await webshopPage.getCurrentUrl()
+        expect(currentUrl).to.equal(urlConstants.webshopPage)
+    });
+
     describe("Should click on the given products given element", () => {
         let randomNumber;
         beforeEach(() => {
