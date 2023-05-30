@@ -1,5 +1,3 @@
-require('dotenv').config()
-
 const getToken = (async () => {
     
     const clientId = 'Type Client ID';
@@ -22,5 +20,3 @@ const getToken = (async () => {
     }
     return await _getToken()
 })();
-
-
