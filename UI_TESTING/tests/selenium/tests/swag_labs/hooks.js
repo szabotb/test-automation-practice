@@ -6,12 +6,10 @@ const credentials = require("../../test_data/swag_labs/credentials");
 const { urlConstants } = require("../../test_data/swag_labs/urlconstants");
 
 before(async () => {
-    let steps = [
-        await openUrl(urlConstants.baseUrl),
-        await pageLoaded(homepage),
-        await homepage.login(credentials.usernames.valid, credentials.password)
-    ];
-    return Promise.all(steps);
+    await openUrl(urlConstants.baseUrl),
+    await pageLoaded(homepage),
+    await homepage.login(credentials.usernames.valid, credentials.password);
+
 });
 
 after(async () => {

@@ -16,14 +16,13 @@ class WebshopPage extends BasePage {
             await this.waitForElements(selectors.webshopPage.products.price),
             await this.waitForElements(selectors.webshopPage.products.addToCartButton)
         ];
-
+        
         return Promise.all(productPageLoadSteps);
     }
 
     async clickOnAProduct(numberOfProduct, whereToClickSelector) {
         return (await this.locateElement(selectors.webshopPage.products.items + `:nth-of-type(${numberOfProduct})`)).findElement(By.css(whereToClickSelector)).click();
     }
-
 }
 
 module.exports = new WebshopPage();

@@ -14,11 +14,13 @@ class HomePage extends BasePage {
     }
 
     async login(username, password) {
-        let loginSteps = [await this.writeText(selectors.homePage.usernameField, username),
-        await this.writeText(selectors.homePage.passwordField, password),
-        await this.clickOnElement(selectors.homePage.submitButton)];
+        let loginSteps = [
+            await this.writeText(selectors.homePage.usernameField, username),
+            await this.writeText(selectors.homePage.passwordField, password),
+            await this.clickOnElement(selectors.homePage.submitButton)
+        ];
 
-        Promise.all(loginSteps);
+        return Promise.all(loginSteps);
     }
 }
 

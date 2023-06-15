@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const { describe, before, it, after, } = require("mocha");
+const { describe, it, } = require("mocha");
 const webshopPage = require("../../po/swag_labs/webshop_page");
 const productPage = require("../../po/swag_labs/product_page");
 const selectors = require("../../test_data/swag_labs/selectors");
@@ -22,8 +22,8 @@ describe("Basic tests for Products Page", () => {
     });
 
     it("Page URL should be correct", async () => {
-        let currentUrl = await webshopPage.getCurrentUrl()
-        expect(currentUrl).to.equal(urlConstants.webshopPage)
+        let currentUrl = await webshopPage.getCurrentUrl();
+        expect(currentUrl).to.equal(urlConstants.webshopPage);
     });
 
     describe("Should click on the given products given element", () => {
@@ -50,5 +50,4 @@ describe("Basic tests for Products Page", () => {
             logger.info(`Number of product in this test was: ${randomNumber}`);
         });
     });
-
 });
