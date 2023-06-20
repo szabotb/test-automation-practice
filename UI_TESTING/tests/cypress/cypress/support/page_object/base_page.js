@@ -1,13 +1,12 @@
 class BasePage {
     visitUrl() {
-        cy.visit('https://www.epam.com/careers');
+        cy.visit('https://job.lhsystems.hu/');
     }
 
-    acceptCookie() {
-        cy.get('#onetrust-banner-sdk').should("be.visible")
-        cy.get('#onetrust-accept-btn-handler').should("be.visible")        
-        cy.get('#onetrust-accept-btn-handler').click()
-        cy.get('#onetrust-banner-sdk').should("not.be.visible")
+    openJobs() {
+        cy.get('#logo').should("be.visible")
+        cy.get("h1[class='title']").should("be.visible")        
+        cy.get("a[class='button extra']:nth-child(3)").click()
     }
 }
 
