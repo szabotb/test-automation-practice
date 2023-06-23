@@ -3,13 +3,6 @@ const { visitUrl, openWebshop, acceptCookie, basePageLoaded, webshopPageLoaded, 
 
 describe('Fressnapf Webshop', () => {
 
-    before(() => {
-        visitUrl();
-        cy.viewport(1280, 720);
-        basePageLoaded();
-        acceptCookie();
-    });
-
     it('Webshop page should load', () => {
         openWebshop();
         cy.url().should('include', 'webshop');
