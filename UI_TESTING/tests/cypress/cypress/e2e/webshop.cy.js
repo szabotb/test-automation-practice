@@ -1,24 +1,29 @@
 /// <reference types="Cypress" />
-const { visitUrl, openWebshop, acceptCookie, basePageLoaded, webshopPageLoaded, searchForItem } = require("../support/page_object/webshop_page");
+const { openWebshop, webshopPageLoaded, searchForItem } = require("../support/page_object/webshop_page");
 
 describe('Fressnapf Webshop', () => {
 
-    before(() => {
-        visitUrl();
-        cy.viewport(1280, 720)
-        basePageLoaded()
-        acceptCookie()
-    });
-
     it('Webshop page should load', () => {
-        openWebshop()
-        cy.url().should('include', 'webshop')
-        webshopPageLoaded()
+        openWebshop();
+        cy.url().should('include', 'webshop');
+        webshopPageLoaded();
     });
 
-    it("Search should work and the url should reflect the search", ()=> {
-        const term = "kaparofa"
-        searchForItem(term)
-        cy.url().should('include', term)
-    })
+    describe('Search in webshop', () => {
+
+        it('Search should work and the url should reflect the search', () => {
+            cy.readFile("cypress/support/test_data/search_terms.json").its("searchterm").then($searchterm => {
+                searchForItem($searchterm);
+                cy.url().should('include', $searchterm);
+            });
+        });
+
+        it('The searchterm should be part of every item title', () => {
+            cy.readFile("cypress/support/test_data/search_terms.json").its("searchterm").then(() => {
+                cy.get("[class='df-card']").each(($resultTitle) => {
+                    expect($resultTitle.text()).to.match(/kapar(o{1}|ó)f(a{1}|á{1})/);
+                });
+            });
+        });
+    });
 });

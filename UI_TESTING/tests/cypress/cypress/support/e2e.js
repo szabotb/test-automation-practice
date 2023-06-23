@@ -18,3 +18,12 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+const { basePageLoaded, acceptCookie, visitUrl } = require("./page_object/webshop_page");
+
+before(() => {
+    visitUrl();
+    cy.viewport(1280, 720);
+    basePageLoaded();
+    acceptCookie();
+});
