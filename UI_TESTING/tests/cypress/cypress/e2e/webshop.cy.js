@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-const { visitUrl, openWebshop, acceptCookie, basePageLoaded, webshopPageLoaded, searchForItem } = require("../support/page_object/webshop_page");
+const { openWebshop, webshopPageLoaded, searchForItem } = require("../support/page_object/webshop_page");
 
 describe('Fressnapf Webshop', () => {
 
