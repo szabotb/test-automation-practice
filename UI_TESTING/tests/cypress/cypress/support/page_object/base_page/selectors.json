@@ -1,0 +1,9 @@
+{
+    "selectors": {
+        "cookieBanner": "[class='grey-popup-box cookie-base']",
+        "logo": "[class='logo-image']",
+        "searchField": "[class='middle'] [data-name='Search']",
+        "webshopButton": "[class='cta'] [class='btn-white']",
+        "closePopUpButton": "[class='exit-popup-close']"
+    }
+}

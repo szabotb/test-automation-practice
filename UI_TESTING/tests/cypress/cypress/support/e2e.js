@@ -19,7 +19,7 @@ import './commands'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-const { basePageLoaded, acceptCookie, visitUrl } = require("./page_object/webshop_page");
+const { basePageLoaded, acceptCookie, visitUrl } = require("./page_object/webshop_page/webshop_page");
 
 before(() => {
     visitUrl();

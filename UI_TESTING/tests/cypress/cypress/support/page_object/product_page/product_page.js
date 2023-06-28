@@ -1,4 +1,4 @@
-const BasePage = require("./base_page");
+const BasePage = require("../base_page/base_page");
 
 class ProductPage extends BasePage {
 
@@ -13,12 +13,12 @@ class ProductPage extends BasePage {
 
     modifyQuantity(quantity) {
 
-        cy.get("[class='summary entry-summary'] input[name='quantity']").clear().type(quantity)
+        cy.get("[class='summary entry-summary'] input[name='quantity']").clear().type(quantity);
     }
 
     addToCart() {
-        cy.get("[name='add-to-cart']").click('center')
+        cy.get("[name='add-to-cart']").click('center');
     }
 }
 
-module.exports = new ProductPage()
+module.exports = new ProductPage();

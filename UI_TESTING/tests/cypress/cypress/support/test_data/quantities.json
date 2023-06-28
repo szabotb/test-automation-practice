@@ -1,4 +1,7 @@
 {
+    "positiveCases": [
+        1
+    ],
     "negativeCases": [
         -2,
         0,

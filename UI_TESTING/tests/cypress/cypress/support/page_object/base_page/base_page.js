@@ -1,4 +1,5 @@
 class BasePage {
+
     visitUrl() {
         cy.visit('https://www.fressnapf.hu/');
     }
@@ -16,7 +17,8 @@ class BasePage {
     }
 
     basePageLoaded() {
-        cy.get("[class='logo-image']").should("be.visible");
+        cy.readSelectors('base_page', "logo").then($selector => 
+            cy.get($selector).should("be.visible"))        
         cy.get("[class='middle'] [data-name='Search']").should("be.visible");
         cy.get("[class='cta'] [class='btn-white']").should("be.visible");
     }
@@ -26,6 +28,7 @@ class BasePage {
         cy.get("@popup").then($popup => {
             if($popup.is(':visible')) {
                 cy.get('popup').click()
+                cy.log('Popup was closed')
             }
             else {
                 return
