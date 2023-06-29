@@ -5,7 +5,7 @@ const { webshopPageLoaded, searchForItem, openWebshop } = require("../support/pa
 describe('Fressnapf Webshop', () => {
 
     it('Webshop page should load', () => {
-        openWebshop()
+        openWebshop();
         cy.url().should('include', 'webshop');
         webshopPageLoaded();
     });
@@ -16,6 +16,7 @@ describe('Fressnapf Webshop', () => {
         it('Search should work and the url should reflect the search', () => {
             cy.readFile("cypress/support/test_data/search_terms.json").its("searchterm").then($searchterm => {
                 searchForItem($searchterm);
+                cy.url().as('searchUrl');
                 cy.url().should('include', $searchterm);
             });
         });
@@ -50,6 +51,14 @@ describe('Fressnapf Webshop', () => {
                                 cy.get("[class='wsc-button float-left']").should("be.visible");
                                 cy.get("[class='wsc-button float-right']").should("be.visible");
                                 cy.get("[class='close-popup-cart']").click();
+                                cy.get("[class='popup-cart-content animated bounceInRight']").should('not.be.visible');
+                                productPageLoaded();
+
+                                cy.readFile("cypress/support/test_data/search_terms.json").its("searchterm").then($searchterm => {
+                                    searchForItem($searchterm);
+                                    cy.url().as('searchUrl');
+                                    cy.url().should('include', $searchterm);
+                                });
                             });
                         });
                     }
@@ -57,7 +66,6 @@ describe('Fressnapf Webshop', () => {
                         cy.log("Quantity input is not available");
                     }
                 });
-                cy.go('back');
             });
 
             it('Negative Cases', () => {
@@ -76,7 +84,6 @@ describe('Fressnapf Webshop', () => {
 
                             });
                         });
-
                     }
                     else {
                         cy.log("Quantity input is not available");

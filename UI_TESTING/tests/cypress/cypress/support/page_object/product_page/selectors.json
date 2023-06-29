@@ -1,0 +1,11 @@
+{
+    "selectors": {
+        "breadcrumb": "[class='woocommerce-breadcrumb']",
+        "productTitle": "[class='summary entry-summary'] [class='product_title entry-title']",
+        "productImage": "[class*='woocommerce-product-gallery images']",
+        "productPrice": "p[class='price'] bdi",
+        "shippingInfo": "[class='summary entry-summary'] [class='custom_stock_text']",
+        "addToCartButton": "[name='add-to-cart']",
+        "quantityInput": "[class='summary entry-summary'] input[name='quantity']"
+    }
+}

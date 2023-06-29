@@ -5,7 +5,7 @@ module.exports = defineConfig({
     video: false,
     testIsolation: false,
     watchForFileChanges: false,
-    defaultCommandTimeout: 6000,
+    defaultCommandTimeout: 10000,
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },

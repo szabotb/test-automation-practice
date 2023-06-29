@@ -31,8 +31,8 @@ Cypress.Commands.add('readSelectors', (page, selector) => {
         for (const prop in $selectorObj) {
             if (prop === selector) {
                 cy.log(`${$selectorObj[prop]}`);
-                cy.log(`${prop}`)
-                nameOfLocator = prop
+                cy.log(`${prop}`);
+                nameOfLocator = prop;
                 locator = $selectorObj[prop];
             }
         }
@@ -40,5 +40,11 @@ Cypress.Commands.add('readSelectors', (page, selector) => {
     });
 });
 
-// TODO !!!
-Cypress.Commands.add('getSelector', )
+
+Cypress.Commands.add('getBasePageSelector', (selector) => {
+    cy.readSelectors('base_page', selector).then($selector => cy.get($selector));
+});
+
+Cypress.Commands.add('getProductPageSelector', (selector) => {
+    cy.readSelectors('product_page', selector).then($selector => cy.get($selector));
+});
