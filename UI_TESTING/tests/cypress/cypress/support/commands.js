@@ -23,3 +23,28 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('readSelectors', (page, selector) => {
+    let nameOfLocator;
+    let locator;
+    cy.readFile(`cypress/support/page_object/${page}/selectors.json`).its("selectors").then(($selectorObj) => {
+        for (const prop in $selectorObj) {
+            if (prop === selector) {
+                cy.log(`${$selectorObj[prop]}`);
+                cy.log(`${prop}`);
+                nameOfLocator = prop;
+                locator = $selectorObj[prop];
+            }
+        }
+        cy.wrap(locator).as(`${nameOfLocator}`);
+    });
+});
+
+
+Cypress.Commands.add('getBasePageSelector', (selector) => {
+    cy.readSelectors('base_page', selector).then($selector => cy.get($selector));
+});
+
+Cypress.Commands.add('getProductPageSelector', (selector) => {
+    cy.readSelectors('product_page', selector).then($selector => cy.get($selector));
+});

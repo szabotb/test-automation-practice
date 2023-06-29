@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-const BasePage = require("./base_page");
+const BasePage = require("../base_page/base_page");
 
 class WebshopPage extends BasePage {
     webshopPageLoaded() {
@@ -13,8 +13,8 @@ class WebshopPage extends BasePage {
     }
 
     searchForItem(item) {
-        cy.get("[class='search-field']").type(item)
-        cy.get("[class='df-classic']").should("be.visible")
+        cy.get("[class='search-field']").type(item);
+        cy.get("[class='df-classic']").should("be.visible");
     }
 }
 

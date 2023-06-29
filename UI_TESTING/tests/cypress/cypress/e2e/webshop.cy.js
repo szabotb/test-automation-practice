@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
-const { productPageLoaded, modifyQuantity, addToCart } = require("../support/page_object/product_page");
-const { openWebshop, webshopPageLoaded, searchForItem } = require("../support/page_object/webshop_page");
+const { productPageLoaded, modifyQuantity, addToCart } = require("../support/page_object/product_page/product_page");
+const { webshopPageLoaded, searchForItem, openWebshop } = require("../support/page_object/webshop_page/webshop_page");
 
 describe('Fressnapf Webshop', () => {
 
@@ -11,10 +11,12 @@ describe('Fressnapf Webshop', () => {
     });
 
     describe('Search in webshop', () => {
+        const randomNumber = Math.floor((Math.random() * 29));
 
         it('Search should work and the url should reflect the search', () => {
             cy.readFile("cypress/support/test_data/search_terms.json").its("searchterm").then($searchterm => {
                 searchForItem($searchterm);
+                cy.url().as('searchUrl');
                 cy.url().should('include', $searchterm);
             });
         });
@@ -28,7 +30,6 @@ describe('Fressnapf Webshop', () => {
         });
 
         it('Opening a random element and checking its properties', () => {
-            const randomNumber = Math.floor((Math.random() * 29));
             cy.get("[class='df-card']").should('have.length', 30);
             cy.get("[class='df-card']").eq(randomNumber).click();
 
@@ -37,7 +38,38 @@ describe('Fressnapf Webshop', () => {
 
         describe('Quantity input in Product Page', () => {
 
+            it('Positive Cases', () => {
+                cy.get("[class='summary entry-summary'] input[name='quantity']").as("quantInput");
+                cy.get("@quantInput").then($quantInput => {
+                    if ($quantInput.is(':visible')) {
+                        cy.readFile("cypress/support/test_data/quantities.json").its("positiveCases").then(($quantity) => {
+                            $quantity.map((value) => {
+                                modifyQuantity(value);
+                                addToCart();
+                                cy.get("[class='popup-cart-content animated bounceInRight']").should('be.visible');
+                                cy.get("[class='cart-prd-row  simple']").should("be.visible");
+                                cy.get("[class='wsc-button float-left']").should("be.visible");
+                                cy.get("[class='wsc-button float-right']").should("be.visible");
+                                cy.get("[class='close-popup-cart']").click();
+                                cy.get("[class='popup-cart-content animated bounceInRight']").should('not.be.visible');
+                                productPageLoaded();
+
+                                cy.readFile("cypress/support/test_data/search_terms.json").its("searchterm").then($searchterm => {
+                                    searchForItem($searchterm);
+                                    cy.url().as('searchUrl');
+                                    cy.url().should('include', $searchterm);
+                                });
+                            });
+                        });
+                    }
+                    else {
+                        cy.log("Quantity input is not available");
+                    }
+                });
+            });
+
             it('Negative Cases', () => {
+                cy.get("[class='df-card']").eq(randomNumber).click();
                 cy.get("[class='summary entry-summary'] input[name='quantity']").as("quantInput");
                 cy.get("@quantInput").then($quantInput => {
                     if ($quantInput.is(':visible')) {
@@ -52,10 +84,9 @@ describe('Fressnapf Webshop', () => {
 
                             });
                         });
-
                     }
                     else {
-                        return;
+                        cy.log("Quantity input is not available");
                     }
                 });
                 //Tests fail because the quantity input takes invalid numbers as well and increases the quantity in the cart
