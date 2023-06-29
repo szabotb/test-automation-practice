@@ -50,6 +50,7 @@ describe('Fressnapf Webshop', () => {
                                 cy.get("[class='cart-prd-row  simple']").should("be.visible");
                                 cy.get("[class='wsc-button float-left']").should("be.visible");
                                 cy.get("[class='wsc-button float-right']").should("be.visible");
+                                cy.get("[class='woocommerce-smart-cart-remove-cart-item']").click();
                                 cy.get("[class='close-popup-cart']").click();
                                 cy.get("[class='popup-cart-content animated bounceInRight']").should('not.be.visible');
                                 productPageLoaded();
