@@ -14,7 +14,7 @@ describe('Fressnapf Webshop', () => {
         const randomNumber = Math.floor((Math.random() * 29));
 
         it('Search should work and the url should reflect the search', () => {
-            cy.readFile("cypress/support/test_data/search_terms.json").its("searchterm").then($searchterm => {
+            cy.fixture("search_terms").its("searchterm").then($searchterm => {
                 searchForItem($searchterm);
                 cy.url().as('searchUrl');
                 cy.url().should('include', $searchterm);
@@ -22,7 +22,7 @@ describe('Fressnapf Webshop', () => {
         });
 
         it('The searchterm should be part of every item title', () => {
-            cy.readFile("cypress/support/test_data/search_terms.json").its("searchterm").then(() => {
+            cy.fixture("search_terms").its("searchterm").then(() => {
                 cy.get("[class='df-card']").each(($resultTitle) => {
                     expect($resultTitle.text()).to.match(/kapar(o{1}|ó)f(a{1}|á{1})/);
                 });
@@ -42,7 +42,7 @@ describe('Fressnapf Webshop', () => {
                 cy.get("[class='summary entry-summary'] input[name='quantity']").as("quantInput");
                 cy.get("@quantInput").then($quantInput => {
                     if ($quantInput.is(':visible')) {
-                        cy.readFile("cypress/support/test_data/quantities.json").its("positiveCases").then(($quantity) => {
+                        cy.fixture("quantities").its("positiveCases").then(($quantity) => {
                             $quantity.map((value) => {
                                 modifyQuantity(value);
                                 addToCart();
@@ -55,7 +55,7 @@ describe('Fressnapf Webshop', () => {
                                 cy.get("[class='popup-cart-content animated bounceInRight']").should('not.be.visible');
                                 productPageLoaded();
 
-                                cy.readFile("cypress/support/test_data/search_terms.json").its("searchterm").then($searchterm => {
+                                cy.fixture("search_terms").its("searchterm").then($searchterm => {
                                     searchForItem($searchterm);
                                     cy.url().as('searchUrl');
                                     cy.url().should('include', $searchterm);
@@ -75,7 +75,7 @@ describe('Fressnapf Webshop', () => {
                 cy.get("@quantInput").then($quantInput => {
                     if ($quantInput.is(':visible')) {
 
-                        cy.readFile("cypress/support/test_data/quantities.json").its("negativeCases").then(($quantity) => {
+                        cy.fixture("quantities").its("negativeCases").then(($quantity) => {
                             $quantity.map((value) => {
                                 modifyQuantity(value);
                                 addToCart();
